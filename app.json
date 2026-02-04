@@ -15,7 +15,7 @@
     },
     "plugins": ["expo-router"],
     "experiments": {
-      "baseUrl": "/FlightTrack"
+      "baseUrl": "/FlightTrack",
       "typedRoutes": true
     }
   }
