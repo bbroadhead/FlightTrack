@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "FlightTrack",
-    "slug": "FlightTrack",
-    "scheme": "FlightTrack",
+    "slug": "flighttrack",
+    "scheme": "flighttrack",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
