@@ -5,7 +5,7 @@ A comprehensive fitness tracking and competition app designed for Air Force squa
 ## Features
 
 ### Authentication System
-- Email-based sign up/sign in with @us.af.mil validation
+- Email-based sign up/sign in with @us.af.mil validation (requires native email push functionality, and will not work in the web version)
 - 3 account types with role-based permissions:
   - **FlightTrack Creator** (Owner): Full access and control
   - **UFPM**: Administrative access, can manage PTL status
