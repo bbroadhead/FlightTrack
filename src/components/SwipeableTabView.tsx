@@ -65,22 +65,49 @@ export function SwipeableTabView({ children }: SwipeableTabViewProps) {
   };
 
   const panGesture = Gesture.Pan()
-    .activeOffsetX([-20, 20]) // Must move horizontally 20px before activating
+    .activeOffsetX([-25, 25]) // Must move horizontally 20px before activating
     .failOffsetY([-10, 10]) // Fail if vertical movement exceeds 10px (for scrolling)
-    .onUpdate((e) => {
-      if (Math.abs(e.translationX) < 25) return; // prevent tiny drags
-      // existing swipe logic
     .onStart(() => {
       startX.value = translateX.value;
     })
-    .onUpdate((event) => {
+  .onUpdate((event) => {
+  // Prevent tiny horizontal drags (helps sliders)
+  if (Math.abs(event.translationX) < 25) return;
+
+  const resistance = 0.3;
+
+  // Baseline: absolute position = where we started + finger delta
+  const next = startX.value + event.translationX;
+
+  const atFirstTab = currentIndex === 0;
+  const atLastTab = currentIndex === maxIndex;
+
+  const draggingRight = event.translationX > 0; // finger moving right
+  const draggingLeft = event.translationX < 0;  // finger moving left
+
+  // Edge resistance (rubber band)
+  if ((atFirstTab && draggingRight) || (atLastTab && draggingLeft)) {
+    translateX.value = startX.value + event.translationX * resistance;
+    return;
+  }
+
+  // Normal drag (no resistance)
+  translateX.value = next;
+
+  // OPTIONAL: if you still want to clamp how far you can drag during update:
+  // const clamp = SCREEN_WIDTH / 3;
+  // translateX.value = Math.max(Math.min(translateX.value, clamp), -clamp);
+})
+
+    /*.onUpdate((event) => {
       // Limit drag distance with resistance at edges
       const dragDistance = event.translationX;
       const resistance = 0.3;
-
+     // if (Math.abs(e.translationX) < 25) return; // prevent tiny drags
       // At first tab, add resistance for right swipe (going left)
       if (currentIndex === 0 && dragDistance > 0) {
-        translateX.value = dragDistance * resistance;
+      //  translateX.value = dragDistance * resistance;
+        translateX.value = startX.value + e.translationX;
       }
       // At last tab, add resistance for left swipe (going right)
       else if (currentIndex === maxIndex && dragDistance < 0) {
@@ -89,7 +116,7 @@ export function SwipeableTabView({ children }: SwipeableTabViewProps) {
       // Normal drag
       else {
         translateX.value = Math.max(Math.min(dragDistance, SCREEN_WIDTH / 3), -SCREEN_WIDTH / 3);
-      }
+      }*/
     })
     .onEnd((event) => {
       const threshold = SCREEN_WIDTH / 4;
