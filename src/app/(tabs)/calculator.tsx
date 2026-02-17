@@ -172,8 +172,8 @@ export default function CalculatorScreen() {
 
   const getScoreStatus = (total: number) => {
     if (total >= 90) return { label: 'Excellent', color: '#22C55E' };
-    if (total >= 75) return { label: 'Satisfactory', color: '#4A90D9' };
-    if (total >= 60) return { label: 'Pass', color: '#F59E0B' };
+    if (total >= 80) return { label: 'Satisfactory', color: '#4A90D9' };
+    if (total >= 75) return { label: 'Pass', color: '#F59E0B' };
     return { label: 'Fail', color: '#EF4444' };
   };
 
