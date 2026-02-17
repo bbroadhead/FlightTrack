@@ -67,6 +67,9 @@ export function SwipeableTabView({ children }: SwipeableTabViewProps) {
   const panGesture = Gesture.Pan()
     .activeOffsetX([-20, 20]) // Must move horizontally 20px before activating
     .failOffsetY([-10, 10]) // Fail if vertical movement exceeds 10px (for scrolling)
+    .onUpdate((e) => {
+      if (Math.abs(e.translationX) < 25) return; // prevent tiny drags
+      // existing swipe logic
     .onStart(() => {
       startX.value = translateX.value;
     })
