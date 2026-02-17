@@ -326,7 +326,10 @@ export default function CalculatorScreen() {
 
               {/* Value Input */}
               {aerobicTest === '1.5_mile' && (
-                <View>
+                <View
+                  onStartShouldSetResponder={() => true}
+                  onMoveShouldSetResponder={() => true}
+                >
                   <Text className="text-white font-medium text-center mb-2">
                     Time: {formatTime(runTime)}
                   </Text>
@@ -348,7 +351,10 @@ export default function CalculatorScreen() {
               )}
 
               {aerobicTest === 'hamr' && (
-                <View>
+                <View
+                  onStartShouldSetResponder={() => true}
+                  onMoveShouldSetResponder={() => true}
+                >
                   <Text className="text-white font-medium text-center mb-2">
                     Shuttles: {hamrShuttles}
                   </Text>
@@ -370,7 +376,10 @@ export default function CalculatorScreen() {
               )}
 
               {aerobicTest === '20m_shuttle' && (
-                <View>
+                <View
+                  onStartShouldSetResponder={() => true}
+                  onMoveShouldSetResponder={() => true}
+                >
                   <Text className="text-white font-medium text-center mb-2">
                     Shuttles: {shuttleRun}
                   </Text>
@@ -426,7 +435,10 @@ export default function CalculatorScreen() {
                 </View>
               </ScrollView>
 
-              <View>
+                <View
+                  onStartShouldSetResponder={() => true}
+                  onMoveShouldSetResponder={() => true}
+                >
                 <Text className="text-white font-medium text-center mb-2">
                   Reps: {pushups}
                 </Text>
@@ -483,7 +495,10 @@ export default function CalculatorScreen() {
               </ScrollView>
 
               {coreTest === 'plank' ? (
-                <View>
+                <View
+                  onStartShouldSetResponder={() => true}
+                  onMoveShouldSetResponder={() => true}
+                >
                   <Text className="text-white font-medium text-center mb-2">
                     Hold Time: {formatPlankTime(plankTime)}
                   </Text>
@@ -503,7 +518,10 @@ export default function CalculatorScreen() {
                   </View>
                 </View>
               ) : (
-                <View>
+                <View
+                  onStartShouldSetResponder={() => true}
+                  onMoveShouldSetResponder={() => true}
+                >
                   <Text className="text-white font-medium text-center mb-2">
                     Reps (1 min): {situps}
                   </Text>
