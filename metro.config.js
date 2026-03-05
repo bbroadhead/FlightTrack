@@ -1,6 +1,5 @@
 const { getDefaultConfig } = require("expo/metro-config");
 const { withNativeWind } = require("nativewind/metro");
-const { withVibecodeMetro } = require("@vibecodeapp/sdk/metro");
 
 /** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(__dirname);
@@ -25,8 +24,6 @@ config.transformer = {
 // Configure resolver with SVG support and web platform mocking
 config.resolver = {
   ...config.resolver,
-  assetExts: assetExts.filter((ext) => ext !== "svg"),
-  sourceExts: [...sourceExts, "svg"],
   useWatchman: false,
   resolveRequest: (context, moduleName, platform) => {
     // Mock native-only modules on web
@@ -50,4 +47,4 @@ config.resolver = {
 };
 
 // Integrate NativeWind with the Metro configuration.
-module.exports = withNativeWind(withVibecodeMetro(config), { input: "./global.css" });
+module.exports = withNativeWind((config), { input: "./global.css" });
