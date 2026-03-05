@@ -9,7 +9,6 @@ import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import { useAuthStore, useMemberStore, type Flight, type Member, type AccountType, type Squadron, type IntegrationService, getDisplayName, canEditAttendance, canManagePTL, isAdmin, SQUADRONS } from '@/lib/store';
 import { cn } from '@/lib/cn';
-import { SwipeableTabView } from '@/components/SwipeableTabView';
 
 const FLIGHTS: Flight[] = ['Avatar', 'Bomber', 'Cryptid', 'Doom', 'Ewok', 'Foxhound', 'ADF', 'DET'];
 const RANKS = ['AB', 'Amn', 'A1C', 'SrA', 'SSgt', 'TSgt', 'MSgt', 'SMSgt', 'CMSgt'];
@@ -293,7 +292,6 @@ export default function ProfileScreen() {
   const accountColors = getAccountTypeColor(userAccountType);
 
   return (
-    <SwipeableTabView>
     <View className="flex-1">
       <LinearGradient
         colors={['#0A1628', '#001F5C', '#0A1628']}
@@ -1219,6 +1217,5 @@ export default function ProfileScreen() {
         </View>
       </Modal>
     </View>
-    </SwipeableTabView>
   );
 }
