@@ -8,7 +8,6 @@ import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useMemberStore, useAuthStore, getDisplayName, ALL_ACHIEVEMENTS, type Flight, type WorkoutType, WORKOUT_TYPES } from '@/lib/store';
 import { cn } from '@/lib/cn';
-import { SwipeableTabView } from '@/components/SwipeableTabView';
 
 // Workout type colors
 const WORKOUT_TYPE_COLORS: Record<WorkoutType, string> = {
@@ -358,7 +357,6 @@ export default function LeaderboardScreen() {
   };
 
   return (
-    <SwipeableTabView>
       <View className="flex-1">
         <LinearGradient
         colors={['#0A1628', '#001F5C', '#0A1628']}
@@ -526,6 +524,5 @@ export default function LeaderboardScreen() {
         </ScrollView>
       </SafeAreaView>
     </View>
-    </SwipeableTabView>
   );
 }
