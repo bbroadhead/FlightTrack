@@ -7,7 +7,6 @@ import { Activity, Timer, Dumbbell, Heart, Target } from 'lucide-react-native';
 import Animated, { FadeInDown, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { cn } from '@/lib/cn';
-import { SwipeableTabView } from '@/components/SwipeableTabView';
 
 import { scoreTotal, type Gender } from '@/lib/pfraScoring2026';
 
@@ -120,7 +119,6 @@ export default function CalculatorScreen() {
   const status = getScoreStatus(scores.total);
 
   return (
-    <SwipeableTabView>
       <View className="flex-1">
         <LinearGradient
           colors={['#0A1628', '#001F5C', '#0A1628']}
@@ -423,6 +421,5 @@ export default function CalculatorScreen() {
           </ScrollView>
         </SafeAreaView>
       </View>
-    </SwipeableTabView>
   );
 }
