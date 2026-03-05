@@ -150,12 +150,6 @@ A comprehensive fitness tracking and competition app designed for Air Force squa
 | View Analytics | No | No | Yes | Yes |
 | Export Data | No | No | Yes | Yes |
 
-## Owner Account
-- **Name**: SSgt Benjamin Broadhead
-- **Flight**: Doom
-- **Email**: benjamin.broadhead.2@us.af.mil
-- **Password**: Estoc#73
-
 ## Tech Stack
 - Expo SDK 53 with React Native 0.76.7
 - NativeWind (TailwindCSS) for styling
