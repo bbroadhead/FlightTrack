@@ -9,7 +9,7 @@
     "newArchEnabled": true,
     "web": {
       "favicon": "@/assets/images/favicon.png"
-    }
+    },
     "ios": {
       "supportsTablet": true
     },
