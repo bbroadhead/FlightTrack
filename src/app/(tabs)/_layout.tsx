@@ -1,5 +1,4 @@
 import React from "react";
-import { View } from "react-native";
 import { withLayoutContext } from "expo-router";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,51 +14,31 @@ function TabsInner() {
     <Tabs
       tabBarPosition="bottom"
       screenOptions={{
-        headerShown: false,
-
-        // Smooth swipe + animated transitions (web + native)
         swipeEnabled,
-        animationEnabled: true,
-        lazy: true,
-
-        tabBarActiveTintColor: "#4A90D9",
-        tabBarInactiveTintColor: "#A0A0A0",
+        tabBarShowIcon: true,
         tabBarStyle: {
-          position: "absolute",
-          backgroundColor: "rgba(10, 22, 40, 0.98)",
-          borderTopColor: "rgba(255, 255, 255, 0.10)",
-          borderTopWidth: 1,
-          height: 64,
-          paddingTop: 6,
-          paddingBottom: 8,
+          backgroundColor: "#0A1628",
+          height: 60,
         },
         tabBarItemStyle: {
-          flex: 1,
-          alignItems: "center",
           justifyContent: "center",
+          alignItems: "center",
         },
-        tabBarContentContainerStyle: {
-          justifyContent: "space-around",
+        tabBarIndicatorStyle: {
+          display: "none",
         },
         tabBarLabelStyle: {
-          fontSize: 10,
-          fontWeight: "600",
-          textTransform: "none",
-          marginTop: 2,
+          fontSize: 12,
+          marginTop: -2,
         },
-        // Hide the usual “top tabs” indicator line
-        tabBarIndicatorStyle: { height: 0 },
-        tabBarBackground: () => <View style={{ position: "absolute", inset: 0, backgroundColor: "rgba(10,22,40,0.98)" }} />,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Leaderboard",
-          tabBarIcon: ({ color, focused }) => (
-            <View style={{ padding: 4, borderRadius: 10, backgroundColor: focused ? "rgba(74, 144, 217, 0.15)" : "transparent" }}>
-              <Ionicons name="trophy-outline" size={22} color={color as string} />
-            </View>
+          title: "Home",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="home-outline" size={22} color={color} />
           ),
         }}
       />
@@ -67,10 +46,8 @@ function TabsInner() {
         name="workouts"
         options={{
           title: "Workouts",
-          tabBarIcon: ({ color, focused }) => (
-            <View style={{ padding: 4, borderRadius: 10, backgroundColor: focused ? "rgba(74, 144, 217, 0.15)" : "transparent" }}>
-              <Ionicons name="barbell-outline" size={22} color={color as string} />
-            </View>
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="barbell-outline" size={22} color={color} />
           ),
         }}
       />
@@ -78,10 +55,8 @@ function TabsInner() {
         name="attendance"
         options={{
           title: "Attendance",
-          tabBarIcon: ({ color, focused }) => (
-            <View style={{ padding: 4, borderRadius: 10, backgroundColor: focused ? "rgba(74, 144, 217, 0.15)" : "transparent" }}>
-              <Ionicons name="clipboard-outline" size={22} color={color as string} />
-            </View>
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="checkbox-outline" size={22} color={color} />
           ),
         }}
       />
@@ -89,10 +64,8 @@ function TabsInner() {
         name="calculator"
         options={{
           title: "Calculator",
-          tabBarIcon: ({ color, focused }) => (
-            <View style={{ padding: 4, borderRadius: 10, backgroundColor: focused ? "rgba(74, 144, 217, 0.15)" : "transparent" }}>
-              <Ionicons name="calculator-outline" size={22} color={color as string} />
-            </View>
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="calculator-outline" size={22} color={color} />
           ),
         }}
       />
@@ -100,11 +73,16 @@ function TabsInner() {
         name="profile"
         options={{
           title: "Profile",
-          tabBarIcon: ({ color, focused }) => (
-            <View style={{ padding: 4, borderRadius: 10, backgroundColor: focused ? "rgba(74, 144, 217, 0.15)" : "transparent" }}>
-              <Ionicons name="settings-outline" size={22} color={color as string} />
-            </View>
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="person-outline" size={22} color={color} />
           ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="two"
+        options={{
+          href: null,
         }}
       />
     </Tabs>
