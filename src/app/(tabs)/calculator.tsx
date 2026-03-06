@@ -7,6 +7,7 @@ import { Activity, Timer, Dumbbell, Heart, Target } from 'lucide-react-native';
 import Animated, { FadeInDown, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { cn } from '@/lib/cn';
+import { useTabSwipe } from '@/contexts/TabSwipeContext';
 
 import { scoreTotal, type Gender } from '@/lib/pfraScoring2026';
 
@@ -72,6 +73,7 @@ function formatMmSs(totalSeconds: number) {
 }
 
 export default function CalculatorScreen() {
+  const { setSwipeEnabled } = useTabSwipe();
   const [ageYears, setAgeYears] = useState(34);
   const [gender, setGender] = useState<Gender>('male');
 
@@ -139,47 +141,80 @@ export default function CalculatorScreen() {
               className="px-6 pt-4 pb-2"
             >
               <Text className="text-white text-2xl font-bold">PFRA Calculator</Text>
-            </Animated.View>
+              </Animated.View>
 
-            <Animated.View
+            <View style={{ backgroundColor: "rgba(10,22,40,0.98)", paddingHorizontal: 24, paddingTop: 10, paddingBottom: 10 }}>
+              <Animated.View
               entering={FadeInDown.delay(150).springify()}
-              className="mx-6 mt-4 bg-white/10 rounded-2xl p-6 border border-white/20"
+              className="bg-white/10 rounded-2xl p-6 border border-white/20"
             >
-              <View className="flex-row items-center justify-between mb-4">
+
+              <View className="flex-row items-center justify-between">
                 <View className="flex-row items-center">
-                  <View className="w-12 h-12 rounded-full bg-af-blue/20 items-center justify-center mr-4">
-                    <Target size={24} color="#4A90D9" />
+                  <View
+                    style={{
+                      width: 76,
+                      height: 76,
+                      borderRadius: 38,
+                      borderWidth: 5,
+                      borderColor: status.color,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginRight: 14,
+                      backgroundColor: "rgba(255,255,255,0.04)",
+                    }}
+                  >
+                    <Text style={{ color: status.color, fontSize: 28, fontWeight: "800" }}>
+                      {scores.total.toFixed(1)}
+                    </Text>
                   </View>
+
                   <View>
-                    <Text className="text-white text-2xl font-bold">{scores.total.toFixed(1)}</Text>
-                    <Text className="text-af-silver text-sm">Total Score (max 100)</Text>
+                    <Text className="text-white text-lg font-bold">Total Score</Text>
+                    <Text className="text-af-silver text-xs">Max 100</Text>
                   </View>
                 </View>
+
                 <View className="items-end">
-                  <Text className="font-bold text-lg" style={{ color: status.color }}>{status.label}</Text>
-                  <Text className="text-af-silver text-xs">Goal: 75+</Text>
+                  <View
+                    style={{
+                      backgroundColor: status.color + "22",
+                      borderColor: status.color + "55",
+                      borderWidth: 1,
+                      paddingHorizontal: 10,
+                      paddingVertical: 6,
+                      borderRadius: 999,
+                    }}
+                  >
+                    <Text className="font-bold text-sm" style={{ color: status.color }}>
+                      {status.label}
+                    </Text>
+                  </View>
                 </View>
               </View>
 
-              <View className="flex-row justify-between">
+              <View className="flex-row justify-between mt-4">
                 <View className="items-center">
                   <Text className="text-af-silver text-xs">WHtR</Text>
                   <Text className="text-white font-semibold">{scores.waist.toFixed(1)}/20</Text>
                 </View>
                 <View className="items-center">
                   <Text className="text-af-silver text-xs">Strength</Text>
-                  <Text className="text-white font-semibold">{scores.strength.toFixed(1)}/15</Text>
+                  <Text className="text-white font-semibold">{scores.strength.toFixed(1)}/20</Text>
                 </View>
                 <View className="items-center">
                   <Text className="text-af-silver text-xs">Core</Text>
-                  <Text className="text-white font-semibold">{scores.core.toFixed(1)}/15</Text>
+                  <Text className="text-white font-semibold">{scores.core.toFixed(1)}/20</Text>
                 </View>
                 <View className="items-center">
                   <Text className="text-af-silver text-xs">Cardio</Text>
-                  <Text className="text-white font-semibold">{scores.cardio.toFixed(1)}/50</Text>
+                  <Text className="text-white font-semibold">{scores.cardio.toFixed(1)}/40</Text>
                 </View>
               </View>
-            </Animated.View>
+
+</Animated.View>
+            </View>
+
 
             {/* Basics */}
             <Animated.View
@@ -196,7 +231,10 @@ export default function CalculatorScreen() {
                   minimumValue={17}
                   maximumValue={65}
                   step={1}
-                />
+                
+                      onSlidingStart={() => setSwipeEnabled(false)}
+                      onSlidingComplete={() => setSwipeEnabled(true)}
+                    />
               </View>
 
               <View className="mb-5">
@@ -226,7 +264,10 @@ export default function CalculatorScreen() {
                     minimumValue={55}
                     maximumValue={80}
                     step={0.5}
-                  />
+                  
+                      onSlidingStart={() => setSwipeEnabled(false)}
+                      onSlidingComplete={() => setSwipeEnabled(true)}
+                    />
                 </View>
                 <View className="flex-1">
                   <Text className="text-af-silver text-sm mb-2">Waist: {waistIn.toFixed(1)} in</Text>
@@ -236,7 +277,10 @@ export default function CalculatorScreen() {
                     minimumValue={20}
                     maximumValue={60}
                     step={0.5}
-                  />
+                  
+                      onSlidingStart={() => setSwipeEnabled(false)}
+                      onSlidingComplete={() => setSwipeEnabled(true)}
+                    />
                 </View>
               </View>
               <Text className="text-white/60 text-xs mt-2">WHtR = waist ÷ height</Text>
@@ -289,7 +333,10 @@ export default function CalculatorScreen() {
                   minimumValue={0}
                   maximumValue={80}
                   step={1}
-                />
+                
+                      onSlidingStart={() => setSwipeEnabled(false)}
+                      onSlidingComplete={() => setSwipeEnabled(true)}
+                    />
               </ComponentCard>
             </View>
 
@@ -333,6 +380,9 @@ export default function CalculatorScreen() {
                       minimumValue={0}
                       maximumValue={5 * 60}
                       step={1}
+                    
+                      onSlidingStart={() => setSwipeEnabled(false)}
+                      onSlidingComplete={() => setSwipeEnabled(true)}
                     />
                   </>
                 ) : (
@@ -344,6 +394,9 @@ export default function CalculatorScreen() {
                       minimumValue={0}
                       maximumValue={80}
                       step={1}
+                    
+                      onSlidingStart={() => setSwipeEnabled(false)}
+                      onSlidingComplete={() => setSwipeEnabled(true)}
                     />
                   </>
                 )}
@@ -390,6 +443,9 @@ export default function CalculatorScreen() {
                       minimumValue={0}
                       maximumValue={120}
                       step={1}
+                    
+                      onSlidingStart={() => setSwipeEnabled(false)}
+                      onSlidingComplete={() => setSwipeEnabled(true)}
                     />
                   </>
                 ) : cardioTest === 'walk_2k' ? (
@@ -401,6 +457,9 @@ export default function CalculatorScreen() {
                       minimumValue={12 * 60}
                       maximumValue={30 * 60}
                       step={1}
+                    
+                      onSlidingStart={() => setSwipeEnabled(false)}
+                      onSlidingComplete={() => setSwipeEnabled(true)}
                     />
                     <Text className="text-white/60 text-xs mt-2">The chart provides a maximum time standard for the walk (no graded points).</Text>
                   </>
@@ -413,6 +472,9 @@ export default function CalculatorScreen() {
                       minimumValue={10 * 60}
                       maximumValue={35 * 60}
                       step={1}
+                    
+                      onSlidingStart={() => setSwipeEnabled(false)}
+                      onSlidingComplete={() => setSwipeEnabled(true)}
                     />
                   </>
                 )}
