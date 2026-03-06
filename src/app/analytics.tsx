@@ -11,7 +11,7 @@ import * as Sharing from 'expo-sharing';
 import { useMemberStore, useAuthStore, getDisplayName, type Flight, type WorkoutType, WORKOUT_TYPES } from '@/lib/store';
 import { cn } from '@/lib/cn';
 
-const FLIGHTS: Flight[] = ['Avatar', 'Bomber', 'Cryptid', 'Doom', 'Ewok', 'Foxhound', 'ADF', 'DET'];
+const FLIGHTS: Flight[] = ['Apex', 'Bomber', 'Cryptid', 'Doom', 'Ewok', 'Foxhound', 'ADF', 'DET'];
 
 // Workout type colors
 const WORKOUT_TYPE_COLORS: Record<WorkoutType, string> = {
