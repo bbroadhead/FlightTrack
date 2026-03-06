@@ -9,12 +9,12 @@ import { format, startOfWeek, addDays, subWeeks, addWeeks, isSameDay } from 'dat
 import { useMemberStore, useAuthStore, type Flight, canEditAttendance, getDisplayName } from '@/lib/store';
 import { cn } from '@/lib/cn';
 
-const FLIGHTS: Flight[] = ['Avatar', 'Bomber', 'Cryptid', 'Doom', 'Ewok', 'Foxhound', 'ADF', 'DET'];
+const FLIGHTS: Flight[] = ['Apex', 'Bomber', 'Cryptid', 'Doom', 'Ewok', 'Foxhound', 'ADF', 'DET'];
 const PT_DAYS = [1, 3, 5]; // Monday, Wednesday, Friday
 
 export default function AttendanceScreen() {
   const [currentWeekStart, setCurrentWeekStart] = useState(() => startOfWeek(new Date(), { weekStartsOn: 1 }));
-  const [selectedFlight, setSelectedFlight] = useState<Flight>('Avatar');
+  const [selectedFlight, setSelectedFlight] = useState<Flight>('Apex');
 
   const members = useMemberStore(s => s.members);
   const ptSessions = useMemberStore(s => s.ptSessions);
