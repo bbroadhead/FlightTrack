@@ -15,21 +15,35 @@ function TabsInner() {
       tabBarPosition="bottom"
       screenOptions={{
         swipeEnabled,
+        lazy: true,
+        animationEnabled: true,
         tabBarShowIcon: true,
+        tabBarActiveTintColor: "#ffffff",
+        tabBarInactiveTintColor: "rgba(255,255,255,0.6)",
         tabBarStyle: {
-          backgroundColor: "#0A1628",
-          height: 60,
+          backgroundColor: "#071226",
+          borderTopWidth: 1,
+          borderTopColor: "rgba(255,255,255,0.08)",
+          height: 66,
+          elevation: 0,
+          shadowOpacity: 0,
         },
         tabBarItemStyle: {
           justifyContent: "center",
           alignItems: "center",
+          paddingVertical: 4,
         },
-        tabBarIndicatorStyle: {
-          display: "none",
+        tabBarIconStyle: {
+          marginBottom: -2,
         },
         tabBarLabelStyle: {
           fontSize: 12,
+          fontWeight: "600",
+          textTransform: "none",
           marginTop: -2,
+        },
+        tabBarIndicatorStyle: {
+          display: "none",
         },
       }}
     >
@@ -76,13 +90,6 @@ function TabsInner() {
           tabBarIcon: ({ color }) => (
             <Ionicons name="person-outline" size={22} color={color} />
           ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="two"
-        options={{
-          href: null,
         }}
       />
     </Tabs>
