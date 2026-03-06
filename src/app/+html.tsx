@@ -13,6 +13,10 @@ export default function Root({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <link rel="manifest" href="/FitFlight/manifest.json" />
         <link rel="apple-touch-icon" href="/FitFlight/apple-touch-icon.png" />
+        {/* iOS PWA support */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-title" content="FitFlight" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="theme-color" content="#001F5C" />
         {/* 
           Disable body scrolling on web. This makes ScrollView components work closer to how they do on native. 
