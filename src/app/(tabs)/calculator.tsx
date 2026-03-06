@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SmartSlider from "../../components/SmartSlider";
-import { Activity, Timer, Dumbbell, Heart, Target } from 'lucide-react-native';
+import { useTabSwipe } from '@/contexts/TabSwipeContext';
+import { Activity, Timer, Dumbbell, Heart, AlertCircle, CheckCircle2 } from 'lucide-react-native';
 import Animated, { FadeInDown, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { cn } from '@/lib/cn';
@@ -40,124 +41,27 @@ function ComponentCard({ title, icon: Icon, score, maxScore, color, children, de
       entering={FadeInDown.delay(delay).springify()}
       className="bg-white/5 rounded-2xl p-5 mb-4 border border-white/10"
     >
-      <View className="flex-row items-center justify-between mb-4">
-        <View className="flex-row items-center">
-          <View className="w-10 h-10 rounded-full items-center justify-center mr-3" style={{ backgroundColor: color + '20' }}>
-            <Icon size={20} color={color} />
-          </View>
-          <Text className="text-white font-semibold text-lg">{title}</Text>
-        </View>
-        <View className="bg-white/10 px-3 py-1 rounded-full">
-          <Text className="text-white font-bold">{score}/{maxScore}</Text>
-        </View>
-      </View>
-
-      <View className="h-2 bg-white/10 rounded-full overflow-hidden mb-4">
-        <Animated.View
-          style={[animatedProgressStyle, { backgroundColor: color }]}
-          className="h-full rounded-full"
-        />
-      </View>
-
-      {children}
-    </Animated.View>
-  );
-}
-
-function formatMmSs(totalSeconds: number) {
-  const s = Math.max(0, Math.round(totalSeconds));
-  const mins = Math.floor(s / 60);
-  const secs = s % 60;
-  return `${mins}:${secs.toString().padStart(2, '0')}`;
-}
-
-export default function CalculatorScreen() {
-  const [ageYears, setAgeYears] = useState(34);
-  const [gender, setGender] = useState<Gender>('male');
-
-  const [waistIn, setWaistIn] = useState(34);
-  const [heightIn, setHeightIn] = useState(70);
-
-  const [cardioTest, setCardioTest] = useState<CardioTest>('run_2mile');
-  const [strengthTest, setStrengthTest] = useState<StrengthTest>('pushups');
-  const [coreTest, setCoreTest] = useState<CoreTest>('situps');
-
-  // Component values
-  const [runSec, setRunSec] = useState(16 * 60 + 0);
-  const [walkSec, setWalkSec] = useState(17 * 60 + 0);
-  const [hamrShuttles, setHamrShuttles] = useState(60);
-
-  const [pushupReps, setPushupReps] = useState(40);
-  const [coreReps, setCoreReps] = useState(40);
-  const [plankSec, setPlankSec] = useState(120);
-
-  const cardioValue = cardioTest === 'run_2mile' ? runSec : cardioTest === 'walk_2k' ? walkSec : hamrShuttles;
-  const coreValue = coreTest === 'plank' ? plankSec : coreReps;
-
-  const scores = useMemo(() => {
-    return scoreTotal({
-      ageYears,
-      gender,
-      waistIn,
-      heightIn,
-      strengthTest,
-      strengthReps: pushupReps,
-      coreTest,
-      coreValue,
-      cardioTest,
-      cardioValue,
-    });
-  }, [ageYears, gender, waistIn, heightIn, strengthTest, pushupReps, coreTest, coreValue, cardioTest, cardioValue]);
-
-  const getScoreStatus = (total: number) => {
-    if (total >= 90) return { label: 'Excellent', color: '#22C55E' };
-    if (total >= 80) return { label: 'Satisfactory', color: '#4A90D9' };
-    if (total >= 75) return { label: 'Pass', color: '#F59E0B' };
-    return { label: 'Fail', color: '#EF4444' };
-  };
-
-  const status = getScoreStatus(scores.total);
-
-  return (
-      <View className="flex-1">
-        <LinearGradient
-          colors={['#0A1628', '#001F5C', '#0A1628']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}
-        />
-
-        <SafeAreaView edges={['top']} className="flex-1">
-          <ScrollView
-            className="flex-1"
-            contentContainerStyle={{ paddingBottom: 120 }}
-            showsVerticalScrollIndicator={false}
-          >
-            <Animated.View
-              entering={FadeInDown.delay(100).springify()}
-              className="px-6 pt-4 pb-2"
-            >
-              <Text className="text-white text-2xl font-bold">PFRA Calculator</Text>
-              <Text className="text-af-silver text-sm mt-1">USAF Physical Fitness Readiness Assessment (Effective 1 Mar 26)</Text>
-            </Animated.View>
-
-            <Animated.View
-              entering={FadeInDown.delay(150).springify()}
-              className="mx-6 mt-4 bg-white/10 rounded-2xl p-6 border border-white/20"
-            >
-              <View className="flex-row items-center justify-between mb-4">
-                <View className="flex-row items-center">
-                  <View className="w-12 h-12 rounded-full bg-af-blue/20 items-center justify-center mr-4">
-                    <Target size={24} color="#4A90D9" />
-                  </View>
-                  <View>
-                    <Text className="text-white text-2xl font-bold">{scores.total.toFixed(1)}</Text>
-                    <Text className="text-af-silver text-sm">Total Score (max 100)</Text>
-                  </View>
+      <View className="items-center">
+                <View
+                  className="w-32 h-32 rounded-full items-center justify-center border-4"
+                  style={{ borderColor: status.color }}
+                >
+                  <Text className="text-white text-4xl font-bold">{scores.total.toFixed(1)}</Text>
+                  <Text className="text-af-silver text-sm">/ 100</Text>
                 </View>
-                <View className="items-end">
-                  <Text className="font-bold text-lg" style={{ color: status.color }}>{status.label}</Text>
-                  <Text className="text-af-silver text-xs">Goal: 75+</Text>
+
+                <View
+                  className="flex-row items-center mt-4 px-4 py-2 rounded-full"
+                  style={{ backgroundColor: status.color + '20' }}
+                >
+                  {status.label === 'Fail' ? (
+                    <AlertCircle size={18} color={status.color} />
+                  ) : (
+                    <CheckCircle2 size={18} color={status.color} />
+                  )}
+                  <Text style={{ color: status.color }} className="font-bold ml-2">
+                    {status.label}
+                  </Text>
                 </View>
               </View>
 
@@ -191,6 +95,8 @@ export default function CalculatorScreen() {
               <View className="mb-5">
                 <Text className="text-af-silver text-sm mb-2">Age: {ageYears}</Text>
                 <SmartSlider
+                  onSlidingStart={() => disableSwipe()}
+                  onSlidingComplete={() => enableSwipe()}
                   value={ageYears}
                   onValueChange={(v) => setAgeYears(Math.round(v))}
                   minimumValue={17}
@@ -221,6 +127,8 @@ export default function CalculatorScreen() {
                 <View className="flex-1">
                   <Text className="text-af-silver text-sm mb-2">Height: {heightIn.toFixed(1)} in</Text>
                   <SmartSlider
+                  onSlidingStart={() => disableSwipe()}
+                  onSlidingComplete={() => enableSwipe()}
                     value={heightIn}
                     onValueChange={(v) => setHeightIn(Number(v))}
                     minimumValue={55}
@@ -231,6 +139,8 @@ export default function CalculatorScreen() {
                 <View className="flex-1">
                   <Text className="text-af-silver text-sm mb-2">Waist: {waistIn.toFixed(1)} in</Text>
                   <SmartSlider
+                  onSlidingStart={() => disableSwipe()}
+                  onSlidingComplete={() => enableSwipe()}
                     value={waistIn}
                     onValueChange={(v) => setWaistIn(Number(v))}
                     minimumValue={20}
@@ -284,6 +194,8 @@ export default function CalculatorScreen() {
 
                 <Text className="text-af-silver text-sm mb-2">Reps: {pushupReps}</Text>
                 <SmartSlider
+                  onSlidingStart={() => disableSwipe()}
+                  onSlidingComplete={() => enableSwipe()}
                   value={pushupReps}
                   onValueChange={(v) => setPushupReps(Math.round(v))}
                   minimumValue={0}
@@ -328,6 +240,8 @@ export default function CalculatorScreen() {
                   <>
                     <Text className="text-af-silver text-sm mb-2">Time: {formatMmSs(plankSec)}</Text>
                     <SmartSlider
+                  onSlidingStart={() => disableSwipe()}
+                  onSlidingComplete={() => enableSwipe()}
                       value={plankSec}
                       onValueChange={(v) => setPlankSec(Math.round(v))}
                       minimumValue={0}
@@ -339,6 +253,8 @@ export default function CalculatorScreen() {
                   <>
                     <Text className="text-af-silver text-sm mb-2">Reps: {coreReps}</Text>
                     <SmartSlider
+                  onSlidingStart={() => disableSwipe()}
+                  onSlidingComplete={() => enableSwipe()}
                       value={coreReps}
                       onValueChange={(v) => setCoreReps(Math.round(v))}
                       minimumValue={0}
@@ -385,6 +301,8 @@ export default function CalculatorScreen() {
                   <>
                     <Text className="text-af-silver text-sm mb-2">Shuttles: {hamrShuttles}</Text>
                     <SmartSlider
+                  onSlidingStart={() => disableSwipe()}
+                  onSlidingComplete={() => enableSwipe()}
                       value={hamrShuttles}
                       onValueChange={(v) => setHamrShuttles(Math.round(v))}
                       minimumValue={0}
@@ -396,6 +314,8 @@ export default function CalculatorScreen() {
                   <>
                     <Text className="text-af-silver text-sm mb-2">Time: {formatMmSs(walkSec)}</Text>
                     <SmartSlider
+                  onSlidingStart={() => disableSwipe()}
+                  onSlidingComplete={() => enableSwipe()}
                       value={walkSec}
                       onValueChange={(v) => setWalkSec(Math.round(v))}
                       minimumValue={12 * 60}
@@ -408,6 +328,8 @@ export default function CalculatorScreen() {
                   <>
                     <Text className="text-af-silver text-sm mb-2">Time: {formatMmSs(runSec)}</Text>
                     <SmartSlider
+                  onSlidingStart={() => disableSwipe()}
+                  onSlidingComplete={() => enableSwipe()}
                       value={runSec}
                       onValueChange={(v) => setRunSec(Math.round(v))}
                       minimumValue={10 * 60}
