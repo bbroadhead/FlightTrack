@@ -8,7 +8,7 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "web": {
-      "favicon": "./assets/images/TotalFlight_Icon_Resized.png"
+      "favicon": "./assets/images/favicon.png"
     }
     "ios": {
       "supportsTablet": true
