@@ -11,7 +11,7 @@ import * as FileSystem from 'expo-file-system';
 import { useMemberStore, useAuthStore, type Flight, type Member, type Squadron } from '@/lib/store';
 import { cn } from '@/lib/cn';
 
-const FLIGHTS: Flight[] = ['Avatar', 'Bomber', 'Cryptid', 'Doom', 'Ewok', 'Foxhound', 'ADF', 'DET'];
+const FLIGHTS: Flight[] = ['Apex', 'Bomber', 'Cryptid', 'Doom', 'Ewok', 'Foxhound', 'ADF', 'DET'];
 const RANKS = ['AB', 'Amn', 'A1C', 'SrA', 'SSgt', 'TSgt', 'MSgt', 'SMSgt', 'CMSgt'];
 
 interface ParsedRow {
@@ -120,7 +120,7 @@ export default function ImportRosterScreen() {
   const normalizeFlight = (input: string): Flight | null => {
     const normalized = input.trim().toLowerCase();
     const flightMap: Record<string, Flight> = {
-      'avatar': 'Avatar',
+      'apex': 'Apex',
       'bomber': 'Bomber',
       'cryptid': 'Cryptid',
       'doom': 'Doom',
@@ -129,7 +129,7 @@ export default function ImportRosterScreen() {
       'adf': 'ADF',
       'det': 'DET',
       // Common variations
-      'a': 'Avatar',
+      'a': 'Apex',
       'b': 'Bomber',
       'c': 'Cryptid',
       'd': 'Doom',
@@ -372,7 +372,7 @@ export default function ImportRosterScreen() {
                   </View>
                   <View className="flex-row items-center mt-2">
                     <View className="w-2 h-2 bg-af-accent rounded-full mr-3" />
-                    <Text className="text-white">Flight (e.g., Avatar, Doom)</Text>
+                    <Text className="text-white">Flight (e.g., Apex, Doom)</Text>
                   </View>
                 </View>
 
@@ -380,7 +380,7 @@ export default function ImportRosterScreen() {
                   <Text className="text-af-silver text-xs">Example:</Text>
                   <Text className="text-white/80 font-mono text-xs mt-1">
                     Rank,First Name,Last Name,Flight{'\n'}
-                    SSgt,John,Smith,Avatar{'\n'}
+                    SSgt,John,Smith,Apex{'\n'}
                     A1C,Jane,Doe,Bomber
                   </Text>
                 </View>
