@@ -4,10 +4,14 @@ import { withLayoutContext } from 'expo-router';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Trophy, ClipboardList, Calculator, Settings, Dumbbell } from 'lucide-react-native';
 
+import { TabSwipeProvider, useTabSwipe } from '@/contexts/TabSwipeContext';
+
 const { Navigator } = createMaterialTopTabNavigator();
 const Tabs = withLayoutContext(Navigator);
 
-export default function TabLayout() {
+function TabsInner() {
+  const { swipeEnabled } = useTabSwipe();
+
   return (
     <Tabs
       tabBarPosition="bottom"
@@ -15,7 +19,7 @@ export default function TabLayout() {
         headerShown: false,
 
         // Smooth swipe + animated transitions (web + native)
-        swipeEnabled: true,
+        swipeEnabled,
         animationEnabled: true,
         lazy: true,
 
@@ -101,5 +105,13 @@ export default function TabLayout() {
       {/* Hidden route used elsewhere in the app */}
       <Tabs.Screen name="two" options={{ href: null }} />
     </Tabs>
+  );
+}
+
+export default function TabLayout() {
+  return (
+    <TabSwipeProvider>
+      <TabsInner />
+    </TabSwipeProvider>
   );
 }
