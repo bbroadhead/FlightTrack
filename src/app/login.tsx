@@ -250,8 +250,8 @@ export default function LoginScreen() {
               <View className="w-20 h-20 bg-white/10 rounded-full items-center justify-center mb-4 border border-white/20">
                 <Shield size={40} color="#C0C0C0" />
               </View>
-              <Text className="text-3xl font-bold text-white">FlightTrack</Text>
-              <Text className="text-af-silver text-base mt-1">Squadron PT Tracker</Text>
+              <Text className="text-3xl font-bold text-white">FitFlight</Text>
+              <Text className="text-af-silver text-base mt-1">Squadron PT Tracker and Fitness Tool</Text>
             </Animated.View>
 
             {/* Form Card */}
