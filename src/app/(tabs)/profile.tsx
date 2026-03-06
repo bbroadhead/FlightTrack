@@ -272,7 +272,7 @@ export default function ProfileScreen() {
 
   const getAccountTypeLabel = (accountType: AccountType) => {
     switch (accountType) {
-      case 'flighttrack_creator': return 'FlightTrack Creator';
+      case 'fitflight_creator': return 'FitFlight Creator';
       case 'ufpm': return 'UFPM';
       case 'ptl': return 'PT Leader';
       default: return 'Member';
@@ -281,7 +281,7 @@ export default function ProfileScreen() {
 
   const getAccountTypeColor = (accountType: AccountType) => {
     switch (accountType) {
-      case 'flighttrack_creator': return { bg: 'bg-purple-500/20', text: 'text-purple-400', border: 'border-purple-500/50' };
+      case 'fitflight_creator': return { bg: 'bg-purple-500/20', text: 'text-purple-400', border: 'border-purple-500/50' };
       case 'ufpm': return { bg: 'bg-af-gold/20', text: 'text-af-gold', border: 'border-af-gold/50' };
       case 'ptl': return { bg: 'bg-af-accent/20', text: 'text-af-accent', border: 'border-af-accent/50' };
       default: return { bg: 'bg-white/10', text: 'text-af-silver', border: 'border-white/20' };
@@ -355,7 +355,7 @@ export default function ProfileScreen() {
                   />
                 ) : (
                   <View className="w-16 h-16 bg-af-accent/30 rounded-full items-center justify-center mr-4">
-                    {userAccountType === 'flighttrack_creator' ? (
+                    {userAccountType === 'fitflight_creator' ? (
                       <Crown size={32} color="#A855F7" />
                     ) : (
                       <User size={32} color="#4A90D9" />
@@ -629,7 +629,7 @@ export default function ProfileScreen() {
                 </View>
               </Pressable>
 
-              {userAccountType === 'flighttrack_creator' && (
+              {userAccountType === 'fitflight_creator' && (
                 <Pressable
                   onPress={() => {
                     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -645,7 +645,7 @@ export default function ProfileScreen() {
                 </Pressable>
               )}
 
-              {userAccountType === 'flighttrack_creator' && (
+              {userAccountType === 'fitflight_creator' && (
                 <Pressable
                   onPress={() => {
                     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -696,7 +696,7 @@ export default function ProfileScreen() {
               <HelpCircle size={24} color="#4A90D9" />
               <View className="ml-3 flex-1">
                 <Text className="text-white font-semibold">View Tutorial</Text>
-                <Text className="text-af-silver text-xs">Learn how to use FlightTrack</Text>
+                <Text className="text-af-silver text-xs">Learn how to use FitFlight</Text>
               </View>
             </Pressable>
           </Animated.View>
@@ -869,7 +869,7 @@ export default function ProfileScreen() {
                 const memberDisplayName = getDisplayName(member);
                 const memberColors = getAccountTypeColor(member.accountType);
                 const isPTL = member.accountType === 'ptl';
-                const isOwner = member.accountType === 'flighttrack_creator';
+                const isOwner = member.accountType === 'fitflight_creator';
 
                 return (
                   <View
@@ -897,7 +897,7 @@ export default function ProfileScreen() {
                             <Text className="text-af-warning text-xs">Revoke PTL</Text>
                           </Pressable>
                         )}
-                        {userAccountType === 'flighttrack_creator' && member.accountType !== 'ufpm' && (
+                        {userAccountType === 'fitflight_creator' && member.accountType !== 'ufpm' && (
                           <Pressable
                             onPress={() => handleSetUFPM(member.id)}
                             className="bg-af-gold/20 px-2 py-1 rounded-full mr-2"
@@ -1124,7 +1124,7 @@ export default function ProfileScreen() {
                 />
               ) : (
                 <View className="w-32 h-32 bg-af-accent/30 rounded-full items-center justify-center">
-                  {userAccountType === 'flighttrack_creator' ? (
+                  {userAccountType === 'fitflight_creator' ? (
                     <Crown size={64} color="#A855F7" />
                   ) : (
                     <User size={64} color="#4A90D9" />
