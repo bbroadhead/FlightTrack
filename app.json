@@ -8,7 +8,7 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "web": {
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "@/assets/images/favicon.png"
     }
     "ios": {
       "supportsTablet": true
