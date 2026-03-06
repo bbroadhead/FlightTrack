@@ -131,7 +131,7 @@ export default function ScheduleSessionScreen() {
           </View>
           <View className="flex-1 items-center justify-center px-6">
             <Text className="text-af-silver text-center">
-              Only PTLs, UFPM, and FlightTrack Creator can schedule PT sessions.
+              Only PTLs, UFPM, and FitFlight Creator can schedule PT sessions.
             </Text>
           </View>
         </SafeAreaView>
