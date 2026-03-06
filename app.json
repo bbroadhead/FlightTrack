@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "FlightTrack",
-    "slug": "flighttrack",
-    "scheme": "flighttrack",
+    "name": "FitFlight",
+    "slug": "fitflight",
+    "scheme": "fitflight",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
@@ -15,7 +15,7 @@
     },
     "plugins": ["expo-router"],
     "experiments": {
-      "baseUrl": "/FlightTrack",
+      "baseUrl": "/FitFlight",
       "typedRoutes": true
     }
   }
