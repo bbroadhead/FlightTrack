@@ -9,7 +9,7 @@ import * as Haptics from 'expo-haptics';
 import { useAuthStore, useMemberStore, type Flight, type Squadron, type User as UserType, getDisplayName, SQUADRONS } from '@/lib/store';
 import { cn } from '@/lib/cn';
 
-const FLIGHTS: Flight[] = ['Avatar', 'Bomber', 'Cryptid', 'Doom', 'Ewok', 'Foxhound', 'ADF', 'DET'];
+const FLIGHTS: Flight[] = ['Apex', 'Bomber', 'Cryptid', 'Doom', 'Ewok', 'Foxhound', 'ADF', 'DET'];
 const RANKS = ['AB', 'Amn', 'A1C', 'SrA', 'SSgt', 'TSgt', 'MSgt', 'SMSgt', 'CMSgt'];
 
 // Owner credentials
@@ -31,7 +31,7 @@ export default function LoginScreen() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [selectedFlight, setSelectedFlight] = useState<Flight>('Avatar');
+  const [selectedFlight, setSelectedFlight] = useState<Flight>('Apex');
   const [selectedSquadron, setSelectedSquadron] = useState<Squadron>('392 IS');
   const [selectedRank, setSelectedRank] = useState('A1C');
   const [wantsPTL, setWantsPTL] = useState(false);
