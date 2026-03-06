@@ -3,7 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Types
-export type Flight = 'Avatar' | 'Bomber' | 'Cryptid' | 'Doom' | 'Ewok' | 'Foxhound' | 'ADF' | 'DET';
+export type Flight = 'Apex' | 'Bomber' | 'Cryptid' | 'Doom' | 'Ewok' | 'Foxhound' | 'ADF' | 'DET';
 export type AccountType = 'fitflight_creator' | 'ufpm' | 'ptl' | 'standard';
 export type Squadron = '392 IS';
 export type WorkoutType = 'Running' | 'Walking' | 'Cycling' | 'Strength' | 'HIIT' | 'Swimming' | 'Sports' | 'Cardio' | 'Flexibility' | 'Other';
@@ -305,8 +305,8 @@ const OWNER_ACCOUNT: Member = {
 // Generate mock members with new structure
 const generateMockMembers = (): Member[] => {
   const mockData = [
-    { rank: 'SSgt', firstName: 'Michael', lastName: 'Johnson', flight: 'Avatar' as Flight, accountType: 'ptl' as AccountType },
-    { rank: 'A1C', firstName: 'Carlos', lastName: 'Martinez', flight: 'Avatar' as Flight, accountType: 'standard' as AccountType },
+    { rank: 'SSgt', firstName: 'Michael', lastName: 'Johnson', flight: 'Apex' as Flight, accountType: 'ptl' as AccountType },
+    { rank: 'A1C', firstName: 'Carlos', lastName: 'Martinez', flight: 'Apex' as Flight, accountType: 'standard' as AccountType },
     { rank: 'SrA', firstName: 'James', lastName: 'Williams', flight: 'Bomber' as Flight, accountType: 'standard' as AccountType },
     { rank: 'TSgt', firstName: 'Robert', lastName: 'Brown', flight: 'Bomber' as Flight, accountType: 'ptl' as AccountType },
     { rank: 'A1C', firstName: 'David', lastName: 'Davis', flight: 'Cryptid' as Flight, accountType: 'standard' as AccountType },
@@ -347,7 +347,7 @@ const generateMockMembers = (): Member[] => {
 const generateMockSessions = (members: Member[]): PTSession[] => {
   const sessions: PTSession[] = [];
   const today = new Date();
-  const flights: Flight[] = ['Avatar', 'Bomber', 'Cryptid', 'Doom', 'Ewok', 'Foxhound', 'ADF', 'DET'];
+  const flights: Flight[] = ['Apex', 'Bomber', 'Cryptid', 'Doom', 'Ewok', 'Foxhound', 'ADF', 'DET'];
 
   for (let i = 0; i < 7; i++) {
     const date = new Date(today);
