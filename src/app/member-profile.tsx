@@ -136,14 +136,14 @@ export default function MemberProfileScreen() {
   // Get fitness assessments (check privacy)
   const canViewFitnessAssessments = isOwnProfile ||
     !member.fitnessAssessments.some(fa => fa.isPrivate) ||
-    currentUser?.accountType === 'flighttrack_creator' ||
+    currentUser?.accountType === 'fitflight_creator' ||
     currentUser?.accountType === 'ufpm';
 
   const latestAssessment = member.fitnessAssessments[member.fitnessAssessments.length - 1];
 
   const getAccountTypeLabel = (accountType: AccountType) => {
     switch (accountType) {
-      case 'flighttrack_creator': return 'FlightTrack Creator';
+      case 'fitflight_creator': return 'FitFlight Creator';
       case 'ufpm': return 'UFPM';
       case 'ptl': return 'PT Leader';
       default: return 'Member';
@@ -152,7 +152,7 @@ export default function MemberProfileScreen() {
 
   const getAccountTypeColor = (accountType: AccountType) => {
     switch (accountType) {
-      case 'flighttrack_creator': return { bg: 'bg-purple-500/20', text: 'text-purple-400' };
+      case 'fitflight_creator': return { bg: 'bg-purple-500/20', text: 'text-purple-400' };
       case 'ufpm': return { bg: 'bg-af-gold/20', text: 'text-af-gold' };
       case 'ptl': return { bg: 'bg-af-accent/20', text: 'text-af-accent' };
       default: return { bg: 'bg-white/10', text: 'text-af-silver' };
