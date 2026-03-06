@@ -1,31 +1,16 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import { withLayoutContext } from 'expo-router';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import React from "react";
+import { View } from "react-native";
+import { withLayoutContext } from "expo-router";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { Ionicons } from "@expo/vector-icons";
+import { TabSwipeProvider, useTabSwipe } from "@/contexts/TabSwipeContext";
 
 const { Navigator } = createMaterialTopTabNavigator();
 const Tabs = withLayoutContext(Navigator);
 
-function TabIcon({
-  name,
-  color,
-  focused,
-}: {
-  name: React.ComponentProps<typeof Ionicons>['name'];
-  color: string;
-  focused: boolean;
-}) {
-  return (
-    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-      <View style={focused ? { backgroundColor: 'rgba(74, 144, 217, 0.18)', padding: 8, borderRadius: 12 } : { padding: 8 }}>
-        <Ionicons name={name} size={22} color={color} />
-      </View>
-    </View>
-  );
-}
+function TabsInner() {
+  const { swipeEnabled } = useTabSwipe();
 
-export default function TabLayout() {
   return (
     <Tabs
       tabBarPosition="bottom"
@@ -33,85 +18,103 @@ export default function TabLayout() {
         headerShown: false,
 
         // Smooth swipe + animated transitions (web + native)
-        swipeEnabled: true,
+        swipeEnabled,
         animationEnabled: true,
         lazy: true,
 
-        tabBarShowIcon: true,
-        tabBarShowLabel: true,
-
-        tabBarActiveTintColor: '#4A90D9',
-        tabBarInactiveTintColor: '#A0A0A0',
-
-        // Make it look/behave like a bottom tab bar
+        tabBarActiveTintColor: "#4A90D9",
+        tabBarInactiveTintColor: "#A0A0A0",
         tabBarStyle: {
-          backgroundColor: 'rgba(10, 22, 40, 0.96)',
-          borderTopColor: 'rgba(255, 255, 255, 0.12)',
+          position: "absolute",
+          backgroundColor: "rgba(10, 22, 40, 0.98)",
+          borderTopColor: "rgba(255, 255, 255, 0.10)",
           borderTopWidth: 1,
-          height: 82,
-          paddingTop: 8,
-          paddingBottom: 20,
+          height: 64,
+          paddingTop: 6,
+          paddingBottom: 8,
+        },
+        tabBarItemStyle: {
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+        },
+        tabBarContentContainerStyle: {
+          justifyContent: "space-around",
         },
         tabBarLabelStyle: {
           fontSize: 10,
-          fontWeight: '600',
-          textTransform: 'none',
-          marginTop: -4,
+          fontWeight: "600",
+          textTransform: "none",
+          marginTop: 2,
         },
-        tabBarIndicatorStyle: {
-          // Hide the usual “top tabs” indicator line
-          height: 0,
-        },
+        // Hide the usual “top tabs” indicator line
+        tabBarIndicatorStyle: { height: 0 },
+        tabBarBackground: () => <View style={{ position: "absolute", inset: 0, backgroundColor: "rgba(10,22,40,0.98)" }} />,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Leaderboard',
+          title: "Leaderboard",
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="trophy-outline" color={color} focused={focused} />
+            <View style={{ padding: 4, borderRadius: 10, backgroundColor: focused ? "rgba(74, 144, 217, 0.15)" : "transparent" }}>
+              <Ionicons name="trophy-outline" size={22} color={color as string} />
+            </View>
           ),
         }}
       />
       <Tabs.Screen
         name="workouts"
         options={{
-          title: 'Workouts',
+          title: "Workouts",
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="barbell-outline" color={color} focused={focused} />
+            <View style={{ padding: 4, borderRadius: 10, backgroundColor: focused ? "rgba(74, 144, 217, 0.15)" : "transparent" }}>
+              <Ionicons name="barbell-outline" size={22} color={color as string} />
+            </View>
           ),
         }}
       />
       <Tabs.Screen
         name="attendance"
         options={{
-          title: 'Attendance',
+          title: "Attendance",
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="clipboard-outline" color={color} focused={focused} />
+            <View style={{ padding: 4, borderRadius: 10, backgroundColor: focused ? "rgba(74, 144, 217, 0.15)" : "transparent" }}>
+              <Ionicons name="clipboard-outline" size={22} color={color as string} />
+            </View>
           ),
         }}
       />
       <Tabs.Screen
         name="calculator"
         options={{
-          title: 'Calculator',
+          title: "Calculator",
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="calculator-outline" color={color} focused={focused} />
+            <View style={{ padding: 4, borderRadius: 10, backgroundColor: focused ? "rgba(74, 144, 217, 0.15)" : "transparent" }}>
+              <Ionicons name="calculator-outline" size={22} color={color as string} />
+            </View>
           ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: 'Profile',
+          title: "Profile",
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="settings-outline" color={color} focused={focused} />
+            <View style={{ padding: 4, borderRadius: 10, backgroundColor: focused ? "rgba(74, 144, 217, 0.15)" : "transparent" }}>
+              <Ionicons name="settings-outline" size={22} color={color as string} />
+            </View>
           ),
         }}
       />
-
-      {/* Hidden route used elsewhere in the app */}
-      <Tabs.Screen name="two" options={{ href: null }} />
     </Tabs>
+  );
+}
+
+export default function TabLayout() {
+  return (
+    <TabSwipeProvider>
+      <TabsInner />
+    </TabSwipeProvider>
   );
 }
