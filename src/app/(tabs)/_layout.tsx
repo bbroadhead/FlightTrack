@@ -2,14 +2,13 @@ import React from 'react';
 import { View } from 'react-native';
 import { withLayoutContext } from 'expo-router';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { Trophy, ClipboardList, Calculator, Settings, Dumbbell } from 'lucide-react-native';
-
+import { Ionicons } from '@expo/vector-icons';
 import { TabSwipeProvider, useTabSwipe } from '@/contexts/TabSwipeContext';
 
 const { Navigator } = createMaterialTopTabNavigator();
 const Tabs = withLayoutContext(Navigator);
 
-function TabsInner() {
+function TabNavigator() {
   const { swipeEnabled } = useTabSwipe();
 
   return (
@@ -52,7 +51,7 @@ function TabsInner() {
           title: 'Leaderboard',
           tabBarIcon: ({ color, focused }) => (
             <View className={focused ? 'bg-af-accent/20 p-2 rounded-xl' : 'p-2'}>
-              <Trophy size={22} color={color} />
+              <Ionicons name="trophy-outline" size={22} color={color} />
             </View>
           ),
         }}
@@ -63,7 +62,7 @@ function TabsInner() {
           title: 'Workouts',
           tabBarIcon: ({ color, focused }) => (
             <View className={focused ? 'bg-af-accent/20 p-2 rounded-xl' : 'p-2'}>
-              <Dumbbell size={22} color={color} />
+              <Ionicons name="barbell-outline" size={22} color={color} />
             </View>
           ),
         }}
@@ -74,7 +73,7 @@ function TabsInner() {
           title: 'Attendance',
           tabBarIcon: ({ color, focused }) => (
             <View className={focused ? 'bg-af-accent/20 p-2 rounded-xl' : 'p-2'}>
-              <ClipboardList size={22} color={color} />
+              <Ionicons name="clipboard-outline" size={22} color={color} />
             </View>
           ),
         }}
@@ -85,7 +84,7 @@ function TabsInner() {
           title: 'Calculator',
           tabBarIcon: ({ color, focused }) => (
             <View className={focused ? 'bg-af-accent/20 p-2 rounded-xl' : 'p-2'}>
-              <Calculator size={22} color={color} />
+              <Ionicons name="calculator-outline" size={22} color={color} />
             </View>
           ),
         }}
@@ -96,7 +95,7 @@ function TabsInner() {
           title: 'Profile',
           tabBarIcon: ({ color, focused }) => (
             <View className={focused ? 'bg-af-accent/20 p-2 rounded-xl' : 'p-2'}>
-              <Settings size={22} color={color} />
+              <Ionicons name="settings-outline" size={22} color={color} />
             </View>
           ),
         }}
@@ -111,7 +110,7 @@ function TabsInner() {
 export default function TabLayout() {
   return (
     <TabSwipeProvider>
-      <TabsInner />
+      <TabNavigator />
     </TabSwipeProvider>
   );
 }
